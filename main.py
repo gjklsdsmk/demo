@@ -10,7 +10,7 @@ def try_proxy(proxy):
     # try: 
     #     proxies = {'http': proxy, 'https': proxy}
     #     get("https://api.ipify.org", proxies=proxies, headers=headers.generate(), timeout=5).status_code
-    #     with open("proxy_analizer/good.txt", 'a') as f:
+    #     with open("good.txt", 'a') as f:
     #         f.write(proxy + '\n')
     #     print(f'{BOLD + GREEN + proxy} - VALID')
     # except: 
@@ -20,7 +20,7 @@ def try_proxy(proxy):
         get("https://api.ipify.org", proxies=proxies, headers=headers.generate(), timeout=5).status_code
         print(f'{BOLD + GREEN + proxy.replace("http://", "")} - VALID (HTTP)')
         good_c.add(proxy)
-        with open("proxy_analizer/good.txt", 'a') as f:
+        with open("good.txt", 'a') as f:
             f.write("http://" + proxy.replace("http://", "") + "\n")
     except:
         try:
@@ -28,7 +28,7 @@ def try_proxy(proxy):
             get("https://api.ipify.org", proxies=proxies, headers=headers.generate(), timeout=5).status_code
             print(f'{BOLD + GREEN + proxy.replace("http://", "")} - VALID (HTTPS)')
             good_c.add(proxy)
-            with open("proxy_analizer/good.txt", 'a') as f:
+            with open("good.txt", 'a') as f:
                 f.write("https://" + proxy.replace("http://", "") + "\n")
         except:
             try:
@@ -36,7 +36,7 @@ def try_proxy(proxy):
                 get("https://api.ipify.org", proxies=proxies, headers=headers.generate(), timeout=5).status_code
                 print(f'{BOLD + GREEN + proxy.replace("http://", "")} - VALID (SOCKS4)')
                 good_c.add(proxy)
-                with open("proxy_analizer/good.txt", 'a') as f:
+                with open("good.txt", 'a') as f:
                     f.write("socks4://" + proxy.replace("http://", "") + "\n")
             except:
                 try:
@@ -44,7 +44,7 @@ def try_proxy(proxy):
                     get("https://api.ipify.org", proxies=proxies, headers=headers.generate(), timeout=5).status_code
                     print(f'{BOLD + GREEN + proxy.replace("http://", "")} - VALID (SOCKS5)')
                     good_c.add(proxy)
-                    with open("proxy_analizer/good.txt", 'a') as f:
+                    with open("good.txt", 'a') as f:
                         f.write("socks4://" + proxy.replace("http://", "") + "\n")
                 except:
                     print(f'{BOLD + RED + proxy.replace("http://", "")} - INVALID')
@@ -59,7 +59,7 @@ RED = '\033[91m'
 GREEN = '\033[92m'
 headers = Headers(headers=True)
 proxies = set()
-with open("proxy_analizer/proxy.txt") as file:
+with open("proxy.txt") as file:
     for line in file:
         proxies.add(line.strip())
 
@@ -77,4 +77,4 @@ for thrd in threads:
     thrd.join()
     print(f"{BOLD + GREEN}Thread {thrd.name} ended")
 
-bot.send_document(6713279525, open("proxy_analizer/good.txt", 'rb'))
+bot.send_document(6713279525, open("good.txt", 'rb'))
